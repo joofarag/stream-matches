@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>📺 بث مباشر - مباراة الأهلي والزمالك</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body { background-color: #000; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; position: relative; }
+        video { width: 100%; height: auto; max-width: 100%; border-radius: 10px; background-color: #000; }
+        .fullscreen-btn {
+            position: absolute; bottom: 20px; right: 20px; padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.5); color: #fff; border: none;
+            border-radius: 5px; cursor: pointer; font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <video id="video" controls autoplay playsinline></video>
+    <button class="fullscreen-btn" onclick="toggleFullScreen()">🔲 ملء الشاشة</button>
+
+    <script>
+        const video = document.getElementById('video');
+        const videoSrc = 'https://het102a.4rouwanda-shop.store/live/978480008877005/index.m3u8';
+
+        // دعم تشغيل m3u8
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = videoSrc;
+        }
+
+        // كود ملء الشاشة
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) {
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) {
+                    video.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
